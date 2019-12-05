@@ -9,32 +9,32 @@ enum log {
     case any(_: Any)
 }
 
-postfix operator / { }
+postfix operator /
 
 postfix func / (target: log?) {
     guard let target = target else { return }
-    
-    func log<T>(emoji: String, _ object: T) {
-        print(emoji + " " + String(object))
+
+    func log<T>(_ emoji: String, _ object: T) {
+        print("\(emoji) \(object)")
     }
-    
+
     switch target {
-    case .ln(let line):
+    case let .ln(line):
         log("✏️", line)
-        
-    case .url(let url):
+
+    case let .url(url):
         log("🌏", url)
-        
-    case .error(let error):
+
+    case let .error(error):
         log("❗️", error)
-        
-    case .any(let any):
+
+    case let .any(any):
         log("⚪️", any)
-        
-    case .obj(let obj):
+
+    case let .obj(obj):
         log("◽️", obj)
-        
-    case .date(let date):
+
+    case let .date(date):
         log("🕒", date)
     }
 }
@@ -46,40 +46,7 @@ let any = ["Key": 2]
 
 log.ln("Pretty")/
 log.url(url)/
-log.any(date)/
+log.date(date)/
 
-log.any(UIColor.redColor())/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+log.any(UIColor.red)/
+log.error(NSError(domain: "www.bing.com", code: 400, userInfo: ["key": "v"]))/
